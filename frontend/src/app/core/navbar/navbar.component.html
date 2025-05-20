@@ -1,0 +1,7 @@
+@if (auth.isLoggedIn()) {
+  <mat-toolbar color="primary" class="vertical-toolbar">
+    <h1 class="nav-title">Product Management</h1>
+    <button mat-button routerLink="/products">Products</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+} 

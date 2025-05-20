@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Product' : 'Add Product' }}</h2>
+<mat-dialog-content [formGroup]="form" class="dialog-content">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+    @if (form.get('name')?.invalid) {
+      <mat-error>Name is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="dialog-full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    @if (form.get('description')?.invalid) {
+      <mat-error>Description is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" formControlName="price" />
+    @if (form.get('price')?.errors?.['required']) {
+      <mat-error>Valid price is required</mat-error>
+    }
+    @if (form.get('price')?.value < 1) {
+      <mat-error>Price must be greater than 0</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Category</mat-label>
+    <input matInput formControlName="category" />
+
+    @if (form.get('category')?.invalid) {
+      <mat-error>Category is required</mat-error>
+    }
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+</mat-dialog-actions> 
