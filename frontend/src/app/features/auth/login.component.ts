@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../../core/auth/auth.service';
+import { NotificationService } from '../../core/notification/notification.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -26,9 +27,10 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router
+    private readonly fb: FormBuilder,
+    private readonly auth: AuthService,
+    private readonly router: Router,
+    private readonly notification: NotificationService
   ) {
     this.loginForm = this.fb.group({
       username: ['admin@gmail.com', Validators.required],
@@ -45,7 +47,7 @@ export class LoginComponent {
     this.auth.login(username, password).subscribe({
       next: () => this.router.navigate(['/products']),
       error: (err: any) => {
-        alert(err.error?.message || 'Login failed');
+        this.notification.error(err.error?.message || 'Login failed');
       }
     });
   }

@@ -115,6 +115,8 @@ export class ProductsComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.products.set([]);
-    this.dialogClose$.unsubscribe();
+    if (this.dialogClose$) {
+      this.dialogClose$.unsubscribe();
+    }
   }
 }

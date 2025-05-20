@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environment';
 import { User } from '../../shared/models/user';
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -49,7 +50,6 @@ export class AuthService {
       .pipe(
         tap((user: User) => {
           this.currentUserSignal.set(user);
-          this.router.navigate(['/products']);
         })
       );
   }
